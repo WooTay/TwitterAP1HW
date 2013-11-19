@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Twitter Search - Good Morning/Night</title>
+                <script src="http://code.jquery.com/jquery-latest.js"></script>
+                <script>
+                        $(document).ready(function(){
+                        
+                                
+                                var url = 'http://cooper-union-search-proxy.herokuapp.com/twitter/search/goodmorningworld%20OR%20goodnightworld';
+                                $.get(url, function(response){
+                                        
+                                        
+                                        var goodmorningworld = 0;
+                                        var goodnightworld = 0;
+                                        
+                                        
+                                        var limit = response.statuses.length;
+                                        
+                                        
+                                        $.each(response.statuses, function(index, status){
+                                        
+                                                
+                                                if(status.text.search("goodmorningworld")>=0) {
+                                                        goodmorningworld++;
+                                                        
+                                                }
+                                                if(status.text.search("goodnightworld")>=0) {
+                                                        goodnightworld++;
+                                                }
+                                                if(index == (response.statuses.length-1)) {
+                                                        console.log("goodmorningworld: "+goodmorningworld, "goodnightworld: "+goodnightworld);
+                                                        $("#goodMorning").css("height",goodmorningworld*2)
+                                                        $("#goodNight").css("height",goodnightworld*2)                                                        
+                                                }
+                                        });
+                                });
+                        });
+                </script>
+                <style>
+                        
+                        #goodMorning, #goodNight {
+                                width:500px;
+                        }
+                        
+                        #goodMorning {
+                                background-color:#FFD801;
+                        }
+                        
+                        #goodNight {
+                                background-color:#6698FF;
+                        }
+                        
+                        .container div {
+                                float:left;
+                        }
+                        
+                        body {
+                        	font-family: Arial Rounded MT Bold;
+                        	size: 24;
+                        }
+                        
+                       
+                        
+                </style>
+        
+        </head>
+        <body>
+                <div class="container">
+                        <div id="goodMorning">GOOD MORNING</div>
+                        <div id="goodNight">GOOD NIGHT</div>
+                </div>
+        </body>
+</html> 
